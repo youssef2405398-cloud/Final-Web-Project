@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="/" class="logo">🎓 Campus Hub</a>
+    <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="/" class="<%= page === 'home' ? 'active' : '' %>">Home</a></li>
+      <li><a href="/events" class="<%= page === 'events' || page === 'event-detail' ? 'active' : '' %>">Events</a></li>
+      <% if (user && user.userId) { %>
+        <li><a href="/create-event" class="<%= page === 'create-event' ? 'active' : '' %>">Create Event</a></li>
+        <% if (user.role === 'admin') { %>
+          <li><a href="/admin" class="<%= page === 'admin' ? 'active' : '' %>">Dashboard</a></li>
+        <% } %>
+      <% } %>
+    </ul>
+    <div class="auth-buttons">
+      <% if (user && user.userId) { %>
+        <span class="user-name">👋 <%= user.name || 'User' %></span>
+        <a href="/logout" class="btn btn-outline">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn btn-outline">Login</a>
+        <a href="/signup" class="btn btn-primary">Sign Up</a>
+      <% } %>
+    </div>
+  </div>
+</nav>

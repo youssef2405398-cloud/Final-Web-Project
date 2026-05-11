@@ -1,0 +1,20 @@
+<footer class="footer">
+  <div class="container">
+    <p>&copy; <%= new Date().getFullYear() %> Campus Event Hub. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="/support">Support</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Global Scripts -->
+<script src="/js/main.js"></script>
+<!-- Page-Specific Scripts -->
+<% if (page === 'events') { %><script src="/js/events.js" defer></script><% } %>
+<% if (page === 'login' || page === 'signup') { %><script src="/js/auth.js" defer></script><% } %>
+<% if (page === 'create-event') { %><script src="/js/create-event.js" defer></script><% } %>
+<% if (page === 'admin') { %><script src="/js/admin.js" defer></script><% } %>
+</body>
+</html>

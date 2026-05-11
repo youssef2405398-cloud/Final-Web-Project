@@ -1,0 +1,59 @@
+<%- include('partials/header', { title: 'Admin Dashboard', page: 'admin', pageCss: 'admin' }) %>
+<%- include('partials/navbar', { page: 'admin' }) %>
+<%- include('partials/toast') %>
+
+<main class="container admin-dashboard">
+  <h1 class="page-title">🛡️ Admin Dashboard</h1>
+  
+  <div class="stats-grid">
+    <div class="stat-card">👥 Total Users: <span class="pending-count"><%= stats ? stats.totalUsers : 0 %></span></div>
+    <div class="stat-card">📅 Total Events: <%= stats ? stats.totalEvents : 0 %></div>
+    <div class="stat-card">⏳ Pending Review: <span class="pending-count"><%= pendingEvents ? pendingEvents.length : 0 %></span></div>
+  </div>
+
+  <h2>⏳ Pending Approval</h2>
+  <% if (pendingEvents && pendingEvents.length > 0) { %>
+    <div class="events-grid admin-grid">
+      <% pendingEvents.forEach(event => { %>
+        <div class="event-card pending">
+          <div class="event-content">
+            <h3><%= event.title %></h3>
+            <p>👤 <%= event.createdBy ? event.createdBy.name : 'Unknown' %> (<%= event.createdBy ? event.createdBy.email : 'N/A' %>)</p>
+            <p>📅 <%= new Date(event.date).toLocaleDateString() %> • 📍 <%= event.location %></p>
+            <div class="admin-actions">
+              <form action="/admin/events/<%= event._id %>/approve" method="POST" class="admin-action-form">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                <button type="submit" class="btn btn-success">✅ Approve</button>
+              </form>
+              <form action="/admin/events/<%= event._id %>/reject" method="POST" class="admin-action-form">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                <button type="submit" class="btn btn-danger">❌ Reject</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p class="empty-state">No pending events. All caught up! 🎉</p>
+  <% } %>
+
+  <h2>✅ Recently Approved</h2>
+  <div class="events-grid">
+    <% if (recentApproved && recentApproved.length > 0) { %>
+      <% recentApproved.forEach(event => { %>
+        <div class="event-card approved">
+          <div class="event-content">
+            <h3><%= event.title %></h3>
+            <p>📅 <%= new Date(event.date).toLocaleDateString() %> • Status: Approved</p>
+            <a href="/events/<%= event._id %>" class="btn btn-outline">View</a>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p class="empty-state">No approved events yet.</p>
+    <% } %>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

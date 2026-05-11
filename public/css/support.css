@@ -1,0 +1,7 @@
+.faq-section { margin-bottom: 3rem; }
+.faq-item { margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1.25rem; border-radius: 8px; border-left: 3px solid var(--accent); }
+.faq-item h4 { margin-bottom: 0.5rem; color: var(--accent); }
+.faq-item p { color: var(--text-secondary); line-height: 1.6; }
+.contact-form { max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+.contact-form h3 { margin-bottom: 1.5rem; text-align: center; }
+.contact-form input, .contact-form textarea { width: 100%; margin-bottom: 1rem; }

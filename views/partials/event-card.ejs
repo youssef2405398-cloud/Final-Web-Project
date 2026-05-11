@@ -1,0 +1,24 @@
+<article class="event-card" data-category="<%= event.category %>">
+  <div class="event-image">
+    <img src="<%= event.imageUrl || '/images/default-event.jpg' %>" alt="<%= event.title %> image" loading="lazy" onerror="this.src='/images/default-event.jpg'">
+    <span class="badge <%= event.category %>"><%= event.category %></span>
+  </div>
+  <div class="event-content">
+    <time class="date" datetime="<%= new Date(event.date).toISOString() %>">
+      📅 <%= new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %> • <%= event.time %>
+    </time>
+    <h3 class="title"><%= event.title %></h3>
+    <p class="organizer">by <%= event.organizer %></p>
+    <p class="location">📍 <%= event.location %></p>
+    <div class="stats">
+      <span>👥 <%= event.currentAttendees || 0 %>/<%= event.maxAttendees %></span>
+      <% const available = Math.max(0, event.maxAttendees - (event.currentAttendees || 0)); %>
+      <% if (available > 0 && available <= 20) { %>
+        <span class="warning">⚠️ Few seats left!</span>
+      <% } else if (available <= 0) { %>
+        <span class="full">❌ Full</span>
+      <% } %>
+    </div>
+    <a href="/events/<%= event._id %>" class="btn btn-primary">View Details →</a>
+  </div>
+</article>

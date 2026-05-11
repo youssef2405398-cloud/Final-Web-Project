@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="../Css/campusevent.css">
+    <link rel="stylesheet" href="../Css/adminlogin.css">
+</head>
+<body>
+    <header> 
+        <h1>Campus Event Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="campusevent.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="createEvent.html">Create Event</a></li>
+                <li><a href="adminlogin.html">Admin</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="sign-up.html">Sign-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Admin Login</h2>
+        <p class="admin-note">Only administrators can access the admin dashboard.</p>
+
+        <section class="login-page">
+            <div class="login-form">
+                <form class="loginform">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+
+                    <label for="pass">Password:</label>
+                    <input type="password" id="pass" required>
+
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="../Js/adminlogin.js"></script>
+    <button id="themeToggle" title="Toggle theme">🌙</button>
+<button id="langToggle" title="Switch language">EN</button>
+<script src="../Js/features.js"></script>
+</body>
+</html>
