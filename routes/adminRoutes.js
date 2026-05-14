@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const adminCtrl = require('../controllers/adminController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
-const { validateIdParam, handleValidationErrors } = require('../middleware/validation');
-const { asyncHandler } = require('../middleware/errorHandler');
+const { validateIdParam } = require('../middleware/validation');
+const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
 // All admin routes require authentication + admin role
 router.use(isAuthenticated, isAdmin);

@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const authCtrl = require('../controllers/authController');
 const { guestOnly } = require('../middleware/auth');
-const { validateSignup, validateLogin, handleValidationErrors } = require('../middleware/validation');
-const { asyncHandler } = require('../middleware/errorHandler');
+const { validateSignup, validateLogin } = require('../middleware/validation');
+const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
 router.get('/login', guestOnly, authCtrl.getLogin);
 router.get('/signup', guestOnly, authCtrl.getSignup);

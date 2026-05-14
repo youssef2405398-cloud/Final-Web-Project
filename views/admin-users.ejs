@@ -1,0 +1,47 @@
+<%- include('partials/header', { title: title, page: page, pageCss: 'admin' }) %>
+  <%- include('partials/navbar', { page: page }) %>
+    <%- include('partials/toast') %>
+
+      <main class="container admin-dashboard">
+        <div class="admin-header">
+          <h1 class="page-title">👥 Manage Users</h1>
+          <a href="/admin" class="btn btn-outline">← Back to Dashboard</a>
+        </div>
+
+        <div class="users-list-container">
+          <% if (users && users.length> 0) { %>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Joined</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(u=> { %>
+                  <tr>
+                    <td>
+                      <%= u.name %>
+                    </td>
+                    <td>
+                      <%= u.email %>
+                    </td>
+                    <td><span class="badge <%= u.role === 'admin' ? 'admin-badge' : 'student-badge' %>">
+                        <%= u.role %>
+                      </span></td>
+                    <td>
+                      <%= new Date(u.createdAt).toLocaleDateString() %>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+            <% } else { %>
+              <p class="empty-state">No users found.</p>
+              <% } %>
+        </div>
+      </main>
+
+      <%- include('partials/footer') %>

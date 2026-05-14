@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const eventCtrl = require('../controllers/eventController');
 const { isAuthenticated } = require('../middleware/auth');
-const { validateEvent, handleValidationErrors, validateIdParam } = require('../middleware/validation');
-const { asyncHandler } = require('../middleware/errorHandler');
+const { validateEvent, validateIdParam } = require('../middleware/validation');
+const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
 // Public
 router.get('/', asyncHandler(eventCtrl.getHome));

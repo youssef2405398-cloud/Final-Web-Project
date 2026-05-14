@@ -37,7 +37,7 @@
       <% } %>
       
       <% for(let i = 1; i <= pagination.totalPages; i++) { %>
-        <%= i === pagination.currentPage ? `<span class="active">${i}</span>` : `<a href="?page=${i}&<%= new URLSearchParams(filters || {}).toString() %>" class="page-link">${i}</a>` %>
+        <%- i === pagination.currentPage ? `<span class="active">${i}</span>` : `<a href="?page=${i}&${new URLSearchParams(filters || {}).toString()}" class="page-link">${i}</a>` %>
       <% } %>
       
       <% if (pagination.hasNext) { %>

@@ -1,5 +1,5 @@
 <%- include('partials/header', { title: 'Login', page: 'login', pageCss: 'auth' }) %>
-<%- include('partials/navbar') %>
+<%- include('partials/navbar', { page: 'login' }) %>
 <%- include('partials/toast') %>
 
 <main class="auth-container">
@@ -12,7 +12,7 @@
       <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required placeholder="you@university.edu" value="<%= values ? values.email : '' %>">
+        <input type="email" id="email" name="email" required placeholder="you@university.edu" value="<%= locals.values ? values.email : '' %>">
       </div>
       <div class="form-group password-wrapper">
         <label for="password">Password</label>

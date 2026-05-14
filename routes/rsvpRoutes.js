@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const rsvpCtrl = require('../controllers/rsvpController');
 const { isAuthenticated } = require('../middleware/auth');
-const { validateRSVP, handleValidationErrors, validateIdParam } = require('../middleware/validation');
-const { asyncHandler } = require('../middleware/errorHandler');
+const { validateRSVP, validateIdParam } = require('../middleware/validation');
+const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
 router.use(isAuthenticated);
 

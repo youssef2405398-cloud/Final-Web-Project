@@ -21,11 +21,14 @@ exports.postSignup = async (req, res) => {
       return res.redirect('/signup');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPassword, role: role || 'student' });
+    const newUser = await User.create({ name, email, password, role: role || 'student' });
     
-    req.session.toast = { type: 'success', message: 'Account created! Please log in.' };
-    res.redirect('/login');
+    req.session.userId = newUser._id.toString();
+    req.session.role = newUser.role;
+    req.session.name = newUser.name;
+    
+    req.session.toast = { type: 'success', message: `Welcome, ${newUser.name}!` };
+    res.redirect('/');
   } catch (err) {
     console.error('Signup Error:', err);
     req.session.toast = { type: 'error', message: 'Registration failed. Try again.' };
@@ -49,7 +52,7 @@ exports.postLogin = async (req, res) => {
     req.session.name = user.name;
     
     req.session.toast = { type: 'success', message: `Welcome back, ${user.name}!` };
-    res.redirect(user.role === 'admin' ? '/admin' : '/');
+    res.redirect('/');
   } catch (err) {
     console.error('Login Error:', err);
     req.session.toast = { type: 'error', message: 'Login failed. Try again.' };
