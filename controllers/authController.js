@@ -13,12 +13,14 @@ exports.getSignup = (req, res) => {
 
 exports.postSignup = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-    
+    let { name, email, password, role } = req.body;
+    email = email.trim().toLowerCase();
+    password = password.trim();
+
     const existing = await User.findOne({ email });
     if (existing) {
       req.session.toast = { type: 'error', message: 'Email already registered' };
-      return res.redirect('/signup');
+      return req.session.save(() => res.redirect('/signup'));
     }
 
     const newUser = await User.create({ name, email, password, role: role || 'student' });
@@ -28,22 +30,25 @@ exports.postSignup = async (req, res) => {
     req.session.name = newUser.name;
     
     req.session.toast = { type: 'success', message: `Welcome, ${newUser.name}!` };
-    res.redirect('/');
+    req.session.save(() => res.redirect('/'));
   } catch (err) {
     console.error('Signup Error:', err);
     req.session.toast = { type: 'error', message: 'Registration failed. Try again.' };
-    res.redirect('/signup');
+    req.session.save(() => res.redirect('/signup'));
   }
 };
 
 exports.postLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    email = email.trim().toLowerCase();
+    password = password.trim();
+    
     const user = await User.findOne({ email }).select('+password');
     
     if (!user || !(await bcrypt.compare(password, user.password))) {
       req.session.toast = { type: 'error', message: 'Invalid email or password' };
-      return res.redirect('/login');
+      return req.session.save(() => res.redirect('/login'));
     }
 
     // Set session data
@@ -52,11 +57,11 @@ exports.postLogin = async (req, res) => {
     req.session.name = user.name;
     
     req.session.toast = { type: 'success', message: `Welcome back, ${user.name}!` };
-    res.redirect('/');
+    req.session.save(() => res.redirect('/'));
   } catch (err) {
     console.error('Login Error:', err);
     req.session.toast = { type: 'error', message: 'Login failed. Try again.' };
-    res.redirect('/login');
+    req.session.save(() => res.redirect('/login'));
   }
 };
 

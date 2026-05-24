@@ -61,7 +61,7 @@ exports.getCreateEvent = (req, res) => {
 
 exports.postCreateEvent = async (req, res) => {
   try {
-    const { title, organizer, date, time, location, category, maxAttendees, imageUrl, description } = req.body;
+    const { title, organizer, date, time, location, category, maxAttendees, description } = req.body;
     
     if (!title || !organizer || !date || !time || !location || !category || !description) {
       req.session.toast = { type: 'error', message: 'All fields are required' };
@@ -74,10 +74,18 @@ exports.postCreateEvent = async (req, res) => {
       return res.redirect('/create-event');
     }
 
+    // Determine the image URL
+    let finalImageUrl = '/images/default-event.jpg';
+    if (req.file) {
+      // file path will be something like public\uploads\events\filename.jpg
+      // we need the browser path /uploads/events/filename.jpg
+      finalImageUrl = '/uploads/events/' + req.file.filename;
+    }
+
     await Event.create({
       title, organizer, date: eventDate, time, location, category,
       maxAttendees: parseInt(maxAttendees) || 150,
-      imageUrl: imageUrl || '/images/default-event.jpg',
+      imageUrl: finalImageUrl,
       description,
       createdBy: req.session.userId,
       status: 'pending'

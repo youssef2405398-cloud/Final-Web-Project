@@ -6,12 +6,10 @@ const { validateIdParam } = require('../middleware/validation');
 const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
 // All admin routes require authentication + admin role
-router.use(isAuthenticated, isAdmin);
+router.get('/admin', isAuthenticated, isAdmin, asyncHandler(adminCtrl.getDashboard));
+router.get('/admin/users', isAuthenticated, isAdmin, asyncHandler(adminCtrl.getAllUsers));
 
-router.get('/admin', asyncHandler(adminCtrl.getDashboard));
-router.get('/admin/users', asyncHandler(adminCtrl.getAllUsers));
-
-router.post('/admin/events/:id/approve', validateIdParam, handleValidationErrors, asyncHandler(adminCtrl.approveEvent));
-router.post('/admin/events/:id/reject', validateIdParam, handleValidationErrors, asyncHandler(adminCtrl.rejectEvent));
+router.post('/admin/events/:id/approve', isAuthenticated, isAdmin, validateIdParam, handleValidationErrors, asyncHandler(adminCtrl.approveEvent));
+router.post('/admin/events/:id/reject', isAuthenticated, isAdmin, validateIdParam, handleValidationErrors, asyncHandler(adminCtrl.rejectEvent));
 
 module.exports = router;

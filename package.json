@@ -11,7 +11,13 @@
     "lint": "eslint . --ext .js",
     "format": "prettier --write \"**/*.{js,json,md}\""
   },
-  "keywords": ["campus", "events", "nodejs", "express", "mongodb"],
+  "keywords": [
+    "campus",
+    "events",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
@@ -23,11 +29,12 @@
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
     "mongoose": "^7.5.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "multer": "^2.1.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1",
     "eslint": "^8.50.0",
+    "nodemon": "^3.0.1",
     "prettier": "^3.0.3"
   },
   "engines": {

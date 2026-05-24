@@ -5,10 +5,8 @@ const { isAuthenticated } = require('../middleware/auth');
 const { validateRSVP, validateIdParam } = require('../middleware/validation');
 const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
 
-router.use(isAuthenticated);
-
-router.get('/rsvp/:id', validateIdParam, handleValidationErrors, asyncHandler(rsvpCtrl.getRSVPForm));
-router.post('/rsvp/:id', validateIdParam, handleValidationErrors, validateRSVP, handleValidationErrors, asyncHandler(rsvpCtrl.postRSVP));
-router.post('/cancel-rsvp/:id', validateIdParam, handleValidationErrors, asyncHandler(rsvpCtrl.cancelRSVP));
+router.get('/rsvp/:id', isAuthenticated, validateIdParam, handleValidationErrors, asyncHandler(rsvpCtrl.getRSVPForm));
+router.post('/rsvp/:id', isAuthenticated, validateIdParam, handleValidationErrors, validateRSVP, handleValidationErrors, asyncHandler(rsvpCtrl.postRSVP));
+router.post('/cancel-rsvp/:id', isAuthenticated, validateIdParam, handleValidationErrors, asyncHandler(rsvpCtrl.cancelRSVP));
 
 module.exports = router;

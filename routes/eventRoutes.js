@@ -12,6 +12,7 @@ router.get('/events/:id', validateIdParam, handleValidationErrors, asyncHandler(
 
 // Protected
 router.get('/create-event', isAuthenticated, eventCtrl.getCreateEvent);
-router.post('/create-event', isAuthenticated, validateEvent, handleValidationErrors, asyncHandler(eventCtrl.postCreateEvent));
+const upload = require('../middleware/upload');
+router.post('/create-event', isAuthenticated, upload.single('image'), validateEvent, handleValidationErrors, asyncHandler(eventCtrl.postCreateEvent));
 
 module.exports = router;
