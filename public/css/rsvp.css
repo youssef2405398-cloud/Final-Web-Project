@@ -1,7 +1,12 @@
-.rsvp-card { max-width: 500px; margin: 0 auto; background: var(--bg-card); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
-.rsvp-card h2 { margin-bottom: 0.5rem; }
-.rsvp-card p { margin-bottom: 0.5rem; color: var(--text-secondary); }
-.rsvp-form { margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
-.guest-counter { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.guest-counter input { width: 80px; text-align: center; }
-.capacity-warning { color: var(--warning); font-weight: 500; margin-bottom: 1rem; display: block; }
+.rsvp-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.rsvp-card h2 {
+    margin-bottom: 0.5rem;
+}

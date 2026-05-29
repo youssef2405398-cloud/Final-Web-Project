@@ -20,28 +20,3 @@
                 </tr>
               </thead>
               <tbody>
-                <% users.forEach(u=> { %>
-                  <tr>
-                    <td>
-                      <%= u.name %>
-                    </td>
-                    <td>
-                      <%= u.email %>
-                    </td>
-                    <td><span class="badge <%= u.role === 'admin' ? 'admin-badge' : 'student-badge' %>">
-                        <%= u.role %>
-                      </span></td>
-                    <td>
-                      <%= new Date(u.createdAt).toLocaleDateString() %>
-                    </td>
-                  </tr>
-                  <% }) %>
-              </tbody>
-            </table>
-            <% } else { %>
-              <p class="empty-state">No users found.</p>
-              <% } %>
-        </div>
-      </main>
-
-      <%- include('partials/footer') %>

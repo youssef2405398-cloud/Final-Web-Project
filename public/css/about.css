@@ -1,6 +1,7 @@
-.content-section { background: var(--bg-card); padding: 2rem; border-radius: var(--radius); margin-bottom: 2rem; box-shadow: var(--shadow); }
-.content-section h2 { margin-bottom: 1rem; color: var(--accent); font-size: 1.5rem; }
-.content-section p { line-height: 1.8; color: var(--text-secondary); }
-.steps { list-style: none; padding-left: 0; margin-top: 1rem; }
-.steps li { background: var(--bg-secondary); padding: 1rem; margin-bottom: 0.75rem; border-radius: 8px; border-left: 3px solid var(--accent); transition: var(--transition); }
-.steps li:hover { transform: translateX(5px); }
+.content-section {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}

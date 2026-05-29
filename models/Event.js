@@ -10,22 +10,8 @@ const eventSchema = new mongoose.Schema({
   category: {
     type: String,
     enum: ['academic', 'sports', 'cultural', 'social', 'workshop'],
-    required: true
+    rectId, ref: 'User'
   },
-  maxAttendees: { type: Number, default: 150, min: 1 },
-  currentAttendees: { type: Number, default: 0 },
-  imageUrl: { type: String },
-  status: {
-    type: String,
-    enum: ['pending', 'approved', 'rejected'],
-    default: 'pending'
-  },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now }
 });
 

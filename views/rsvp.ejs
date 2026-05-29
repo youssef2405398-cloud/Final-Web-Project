@@ -1,71 +1,41 @@
-<%- include('partials/header', { title: event ? `RSVP to ${event.title}` : 'RSVP', page: 'rsvp', pageCss: 'rsvp' }) %>
-<%- include('partials/navbar', { page: 'rsvp' }) %>
-<%- include('partials/toast') %>
+<%- include('partials/header', { title: event ? `RSVP to ${event.title}` : 'RSVP' , page: 'rsvp' , pageCss: 'rsvp' }) %>
+  <%- include('partials/navbar', { page: 'rsvp' }) %>
+    <%- include('partials/toast') %>
 
-<main class="container">
-  <h1 class="page-title">🎟️ RSVP to Event</h1>
+      <main class="container">
+        <h1 class="page-title">🎟️ RSVP to Event</h1>
 
-  <% if (!event) { %>
-    <div class="rsvp-card" style="text-align: center; padding: 3rem;">
-      <h2>⚠️ Event Not Found</h2>
-      <p style="color: var(--text-secondary); margin: 1rem 0;">The event you're looking for doesn't exist, has been rejected, or was removed by an admin.</p>
-      <a href="/events" class="btn btn-primary">Browse Events</a>
-    </div>
-  <% } else { %>
-    <% 
-      const current = event.currentAttendees || 0;
-      const available = Math.max(0, event.maxAttendees - current);
-      const maxGuests = Math.min(5, available);
-      const isFull = available <= 0;
-    %>
-
-    <div class="rsvp-card">
-      <h2><%= event.title %></h2>
-      <p style="line-height: 1.6; margin-bottom: 1.5rem;"><%= event.description %></p>
-      
-      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.95rem;">
-        <span>📅 <%= new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></span>
-        <span>🕒 <%= event.time %></span>
-        <span>📍 <%= event.location %></span>
-        <span>👤 <%= event.organizer %></span>
-      </div>
-
-      <div class="capacity-info" style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
-        <p style="margin: 0; font-weight: 500;">
-          👥 Available Seats: 
-          <span style="color: <%= isFull ? 'var(--danger)' : available <= 10 ? 'var(--warning)' : 'var(--success)' %>;">
-            <%= available %> / <%= event.maxAttendees %>
-          </span>
-        </p>
-        <% if (isFull) { %>
-          <p class="capacity-warning">❌ This event is currently at full capacity.</p>
-        <% } else if (available <= 10) { %>
-          <p class="capacity-warning" style="color: var(--warning); margin-top: 0.5rem;">⚠️ Only <%= available %> seats remaining!</p>
-        <% } %>
-      </div>
-
-      <% if (user && user.userId) { %>
-        <form action="/rsvp/<%= event._id %>" method="POST" class="rsvp-form">
-          <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
-          
-          <div class="guest-counter">
-            <label for="guestCount">Number of Guests (Max <%= maxGuests %>):</label>
-            <input type="number" id="guestCount" name="guestCount" min="1" max="<%= maxGuests %>" value="1" required <%= isFull ? 'disabled' : '' %>>
+        <% if (!event) { %>
+          <div class="rsvp-card" style="text-align: center; padding: 3rem;">
+            margin-top: 0.5rem;">⚠️ Only <%= available %> seats remaining!</p>
+              <% } %>
           </div>
-          
-          <button type="submit" class="btn btn-primary btn-block" <%= isFull ? 'disabled' : '' %>>
-            <%= isFull ? 'Event Full' : 'Confirm Attendance' %>
-          </button>
-        </form>
-      <% } else { %>
-        <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 1rem;">
-          <p style="color: var(--text-secondary); margin: 0;">
-            Please <a href="/login?redirect=/rsvp/<%= event._id %>">log in</a> or <a href="/signup">create an account</a> to reserve your spot.
-          </p>
-        </div>
-      <% } %>
-    </div>
-  <% } %>
-</main>
 
-<%- include('partials/footer') %>
+          <% if (user && user.userId) { %>
+            <form action="/rsvp/<%= event._id %>" method="POST" class="rsvp-form">
+              <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+
+              <div class="guest-counter">
+                <label for="guestCount">Number of Guests (Max <%= maxGuests %>):</label>
+                <input type="number" id="guestCount" name="guestCount" min="1" max="<%= maxGuests %>" value="1" required
+                  <%=isFull ? 'disabled' : '' %>>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" <%=isFull ? 'disabled' : '' %>>
+                <%= isFull ? 'Event Full' : 'Confirm Attendance' %>
+              </button>
+            </form>
+            <% } else { %>
+              <div
+                style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 1rem;">
+                <p style="color: var(--text-secondary); margin: 0;">
+                  Please <a href="/login?redirect=/rsvp/<%= event._id %>">log in</a> or <a href="/signup">create an
+                    account</a> to reserve your spot.
+                </p>
+              </div>
+              <% } %>
+                </div>
+                <% } %>
+      </main>
+
+      <%- include('partials/footer') %>

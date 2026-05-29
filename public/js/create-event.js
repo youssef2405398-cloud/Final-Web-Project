@@ -24,38 +24,7 @@ function initEventForm() {
   }
 
   // Character counter for description
-  if (descInput) {
-    const counter = document.createElement('small');
-    counter.className = 'char-counter';
-    descInput.parentNode.appendChild(counter);
-    
-    descInput.addEventListener('input', () => {
-      counter.textContent = `${descInput.value.length}/2000 characters`;
-      counter.style.color = descInput.value.length > 1900 ? 'var(--warning)' : 'var(--text-secondary)';
-    });
-    descInput.dispatchEvent(new Event('input'));
-  }
 
-  // Image URL preview
-  if (imgInput && imgPreview) {
-    let debounce;
-    imgInput.addEventListener('input', () => {
-      clearTimeout(debounce);
-      debounce = setTimeout(() => {
-        const url = imgInput.value.trim();
-        if (url && url.startsWith('http')) {
-          imgPreview.src = url;
-          imgPreview.style.display = 'block';
-          imgPreview.onerror = () => {
-            imgPreview.style.display = 'none';
-            showToast('Invalid image URL', 'error');
-          };
-        } else {
-          imgPreview.style.display = 'none';
-        }
-      }, 500);
-    });
-  }
 
   // Form validation & submission
   form.addEventListener('submit', (e) => {
