@@ -1,10 +1,17 @@
 .filters {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  background: var(--bg-secondary);
-  padding: 1.25rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;
+  background: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow);
 }
+.filters input[type="text"], .filters select { flex: 1; min-width: 200px; }
+
+.pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+.pagination a, .pagination span {
+  padding: 0.5rem 0.75rem; border-radius: 6px; background: var(--bg-card);
+  color: var(--text-secondary); border: 1px solid var(--border); transition: var(--transition);
+}
+.pagination a:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.pagination .active { background: var(--accent); color: white; border-color: var(--accent); cursor: default; }
+.pagination .disabled { opacity: 0.5; pointer-events: none; }
+
+.empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 1.1rem; grid-column: 1 / -1; }
+.empty-state a { color: var(--accent); font-weight: 600; }

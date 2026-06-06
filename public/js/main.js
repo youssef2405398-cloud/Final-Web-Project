@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initThemeToggle() {
   const saved = localStorage.getItem('theme');
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-
+  
   if (saved) {
     document.documentElement.setAttribute('data-theme', saved);
   } else if (prefersLight) {
@@ -37,10 +37,23 @@ function initMobileMenu() {
   const toggle = document.querySelector('.mobile-toggle');
   const navLinks = document.querySelector('.nav-links');
   const authBtns = document.querySelector('.auth-buttons');
-
+  
   if (!toggle || !navLinks) return;
+  
+  toggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('mobile-open');
+    toggle.setAttribute('aria-expanded', isOpen);
+    toggle.textContent = isOpen ? '✕' : '☰';
+  });
 
-
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('mobile-open')) {
+      navLinks.classList.remove('mobile-open');
+      toggle.textContent = '☰';
+      toggle.setAttribute('aria-expanded', false);
+    }
+  });
 }
 
 // ===== Auto-hide Toast =====

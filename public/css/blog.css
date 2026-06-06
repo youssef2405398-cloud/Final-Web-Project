@@ -1,6 +1,7 @@
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.blog-card { background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition); }
+.blog-card:hover { transform: translateY(-5px); }
+.blog-card h3 { margin-bottom: 0.75rem; font-size: 1.3rem; }
+.blog-card p { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+.read-more { font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 0.25rem; }
+.read-more:hover { gap: 0.5rem; }
