@@ -2,4 +2,19 @@
   <%- include('partials/navbar', { page: 'error' }) %>
     <%- include('partials/toast') %>
 
-      < <%- include('partials/footer') %>
+      <main class="container error-page">
+        <h1 class="error-code">
+          <%= code || 404 %>
+        </h1>
+        <h2>
+          <%= message || 'Something went wrong' %>
+        </h2>
+        <p>We're sorry, but the page you're looking for couldn't be found or an unexpected error occurred. Please try
+          again or return home.</p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">Go Home</a>
+          <a href="javascript:history.back()" class="btn btn-outline">Go Back</a>
+        </div>
+      </main>
+
+      <%- include('partials/footer') %>

@@ -9,12 +9,19 @@
   </div>
 </footer>
 
-<!-- Global Scripts -->
 <script src="/js/main.js"></script>
-<!-- Page-Specific Scripts -->
-<% if (locals.page === 'events') { %><script src="/js/events.js" defer></script><% } %>
-<% if (locals.page === 'login' || locals.page === 'signup') { %><script src="/js/auth.js" defer></script><% } %>
-<% if (locals.page === 'create-event') { %><script src="/js/create-event.js" defer></script><% } %>
-<% if (locals.page === 'admin') { %><script src="/js/admin.js" defer></script><% } %>
-</body>
-</html>
+<% if (locals.page==='events' ) { %>
+  <script src="/js/events.js" defer></script>
+  <% } %>
+    <% if (locals.page==='login' || locals.page==='signup' ) { %>
+      <script src="/js/auth.js" defer></script>
+      <% } %>
+        <% if (locals.page==='create-event' ) { %>
+          <script src="/js/create-event.js" defer></script>
+          <% } %>
+            <% if (locals.page==='admin' ) { %>
+              <script src="/js/admin.js" defer></script>
+              <% } %>
+                </body>
+
+                </html>

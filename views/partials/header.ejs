@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= typeof title !== 'undefined' ? title + ' | Campus Event Hub' : 'Campus Event Hub' %></title>
+  <title>
+    <%= typeof title !=='undefined' ? title + ' | Campus Event Hub' : 'Campus Event Hub' %>
+  </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
@@ -14,4 +17,5 @@
     else if (window.matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.setAttribute('data-theme', 'light');
   </script>
 </head>
+
 <body>

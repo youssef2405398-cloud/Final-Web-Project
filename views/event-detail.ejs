@@ -14,31 +14,79 @@
           </div>
         </div>
 
-        <% } else { %>
-          <a href="/login?redirect=/events/<%= event._id %>" class="btn btn-outline btn-block">Log in to RSVP</a>
-          <% } %>
-            </div>
-            </div>
-            </div>
-            </div>
+        <div class="event-detail-content">
+          <div class="event-image-container">
+            <img src="<%= event.imageUrl || '/images/default-event.jpg' %>" alt="<%= event.title %>"
+              class="event-main-image" onerror="this.src='/images/default-event.jpg'">
+          </div>
 
-            <div class="event-description">
-              <h2>About This Event</h2>
-              <div class="description-text">
-                <% if (event.description) { %>
-                  <% const paragraphs=event.description.split('\n'); %>
-                    <% paragraphs.forEach(p=> { %>
-                      <% if (p.trim()) { %>
-                        <p>
-                          <%= p %>
-                        </p>
-                        <% } %>
-                          <% }) %>
-                            <% } else { %>
-                              <p>No description provided for this event.</p>
-                              <% } %>
+          <div class="event-info-sidebar">
+            <div class="info-card">
+              <h3>Event Details</h3>
+              <ul class="info-list">
+                <li><strong>📅 Date:</strong>
+                  <%= new Date(event.date).toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric' ,
+                    month: 'long' , day: 'numeric' }) %>
+                </li>
+                <li><strong>⏰ Time:</strong>
+                  <%= event.time %>
+                </li>
+                <li><strong>📍 Location:</strong>
+                  <%= event.location %>
+                </li>
+                <li><strong>👤 Organizer:</strong>
+                  <%= event.organizer %>
+                </li>
+              </ul>
+
+              <div class="availability-status">
+                <h4>Availability</h4>
+                <p>
+                  <strong>
+                    <%= event.availableSeats %>
+                  </strong> seats remaining
+                  (out of <%= event.maxAttendees %>)
+                </p>
+                <% if (event.availableSeats <=0) { %>
+                  <div class="alert alert-danger">This event is full.</div>
+                  <% } else if (event.availableSeats <=20) { %>
+                    <div class="alert alert-warning">Hurry! Only a few seats left.</div>
+                    <% } %>
+              </div>
+
+              <div class="action-buttons">
+                <% if (user && user.userId) { %>
+                  <% if (event.availableSeats> 0) { %>
+                    <a href="/rsvp/<%= event._id %>" class="btn btn-primary btn-block">RSVP Now</a>
+                    <% } else { %>
+                      <button class="btn btn-secondary btn-block" disabled>Event Full</button>
+                      <% } %>
+                        <% } else { %>
+                          <a href="/login?redirect=/events/<%= event._id %>" class="btn btn-outline btn-block">Log in to
+                            RSVP</a>
+                          <% } %>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="event-description">
+          <h2>About This Event</h2>
+          <div class="description-text">
+            <% if (event.description) { %>
+              <% const paragraphs=event.description.split('\n'); %>
+                <% paragraphs.forEach(p=> { %>
+                  <% if (p.trim()) { %>
+                    <p>
+                      <%= p %>
+                    </p>
+                    <% } %>
+                      <% }) %>
+                        <% } else { %>
+                          <p>No description provided for this event.</p>
+                          <% } %>
+          </div>
+        </div>
       </main>
 
       <%- include('partials/footer') %>

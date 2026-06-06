@@ -9,6 +9,36 @@
             <p class="error-msg">
               <%= error %>
             </p>
+            <% } %>
+              <form action="/signup" method="POST" class="auth-form">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                <div class="form-group">
+                  <label for="name">Full Name</label>
+                  <input type="text" id="name" name="name" required placeholder="John Doe"
+                    value="<%= locals.values ? values.name : '' %>">
+                </div>
+                <div class="form-group">
+                  <label for="email">University Email</label>
+                  <input type="email" id="email" name="email" required placeholder="you@university.edu"
+                    value="<%= locals.values ? values.email : '' %>">
+                </div>
+                <div class="form-group password-wrapper">
+                  <label for="password">Password</label>
+                  <input type="password" id="password" name="password" required placeholder="Min 6 characters">
+                </div>
+                <div class="form-group role-select">
+                  <label>I am a:</label>
+                  <div class="radio-group">
+                    <label><input type="radio" name="role" value="student" checked <%=locals.values &&
+                        values.role==='student' ? 'checked' : '' %>> Student</label>
+                    <label><input type="radio" name="role" value="admin" <%=locals.values && values.role==='admin'
+                        ? 'checked' : '' %>> Admin</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+              </form>
+              <p class="auth-switch">Already registered? <a href="/login">Log in</a></p>
+        </div>
+      </main>
 
-
-            <%- include('partials/footer') %>
+      <%- include('partials/footer') %>
