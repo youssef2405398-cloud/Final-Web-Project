@@ -26,4 +26,4 @@ if (!fs.existsSync(logDir)) {
   module.exports = morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev', {
     stream: process.env.NODE_ENV === 'production' ? accessLogStream : process.stdout,
     skip
-  });
+});
