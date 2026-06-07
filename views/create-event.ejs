@@ -1,101 +1,90 @@
-<%- include('partials/header', { title: 'Create Event' , page: 'create-event' , pageCss: 'create-event' }) %>
-  <%- include('partials/navbar', { page: 'create-event' }) %>
-    <%- include('partials/toast') %>
+<%- include('partials/header', { title: 'Create Event', page: 'create-event', pageCss: 'create-event' }) %>
+<%- include('partials/navbar', { page: 'create-event' }) %>
+<%- include('partials/toast') %>
 
-      <main class="container">
-        <h1 class="page-title">✨ Create New Event</h1>
-        <% if (typeof error !=='undefined' && error) { %>
-          <div class="event-form alert"
-            style="background: rgba(239,68,68,0.15); color: var(--danger); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <%= error %>
-          </div>
-          <% } %>
+<main class="container">
+  <h1 class="page-title">✨ Create New Event</h1>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="event-form alert" style="background: rgba(239,68,68,0.15); color: var(--danger); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><%= error %></div>
+  <% } %>
+  
+  <form action="/create-event" method="POST" class="event-form" id="createEventForm" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+    
+    <div class="form-group">
+      <label for="title">Event Title *</label>
+      <input type="text" id="title" name="title" required placeholder="e.g., Spring Coding Bootcamp" value="<%= locals.values ? values.title : '' %>">
+    </div>
+    
+    <div class="form-group">
+      <label for="organizer">Organizer Name *</label>
+      <input type="text" id="organizer" name="organizer" required placeholder="e.g., CS Student Association">
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="date">Date *</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+      <div class="form-group">
+        <label for="time">Time *</label>
+        <input type="time" id="time" name="time" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="location">Location *</label>
+      <input type="text" id="location" name="location" required placeholder="e.g., Student Union Building, Room 101">
+    </div>
+    
+    <div class="form-group">
+      <label for="category">Category *</label>
+      <select id="category" name="category" required>
+        <option value="">Select Category</option>
+        <option value="academic">Academic</option>
+        <option value="sports">Sports</option>
+        <option value="cultural">Cultural</option>
+        <option value="social">Social</option>
+        <option value="workshop">Workshop</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="maxAttendees">Max Attendees</label>
+      <input type="number" id="maxAttendees" name="maxAttendees" min="1" max="500" value="<%= locals.values ? values.maxAttendees : 150 %>">
+    </div>
+    
+    <div class="form-group">
+      <label for="image">Event Image</label>
+      <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/webp, image/gif" onchange="previewImage(event)">
+      <img id="image-preview" style="display:none; margin-top:1rem; max-width:100%; border-radius:8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" alt="Image preview">
+    </div>
 
-            <form action="/create-event" method="POST" class="event-form" id="createEventForm"
-              enctype="multipart/form-data">
-              <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+    <script>
+      function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('image-preview');
+        
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          preview.style.display = 'none';
+        }
+      }
+    </script>
+    
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea id="description" name="description" rows="5" required placeholder="Describe what attendees can expect..."></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-block">Submit for Approval</button>
+  </form>
+</main>
 
-              <div class="form-group">
-                <label for="title">Event Title *</label>
-                <input type="text" id="title" name="title" required placeholder="e.g., Spring Coding Bootcamp"
-                  value="<%= locals.values ? values.title : '' %>">
-              </div>
-
-              <div class="form-group">
-                <label for="organizer">Organizer Name *</label>
-                <input type="text" id="organizer" name="organizer" required placeholder="e.g., CS Student Association">
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="date">Date *</label>
-                  <input type="date" id="date" name="date" required>
-                </div>
-                <div class="form-group">
-                  <label for="time">Time *</label>
-                  <input type="time" id="time" name="time" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="location">Location *</label>
-                <input type="text" id="location" name="location" required
-                  placeholder="e.g., Student Union Building, Room 101">
-              </div>
-
-              <div class="form-group">
-                <label for="category">Category *</label>
-                <select id="category" name="category" required>
-                  <option value="">Select Category</option>
-                  <option value="academic">Academic</option>
-                  <option value="sports">Sports</option>
-                  <option value="cultural">Cultural</option>
-                  <option value="social">Social</option>
-                  <option value="workshop">Workshop</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="maxAttendees">Max Attendees</label>
-                <input type="number" id="maxAttendees" name="maxAttendees" min="1" max="500"
-                  value="<%= locals.values ? values.maxAttendees : 150 %>">
-              </div>
-
-              <div class="form-group">
-                <label for="image">Event Image</label>
-                <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/webp, image/gif"
-                  onchange="previewImage(event)">
-                <img id="image-preview"
-                  style="display:none; margin-top:1rem; max-width:100%; border-radius:8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-                  alt="Image preview">
-              </div>
-
-              <script>
-                function previewImage(event) {
-                  const input = event.target;
-                  const preview = document.getElementById('image-preview');
-
-                  if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                      preview.src = e.target.result;
-                      preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                  } else {
-                    preview.style.display = 'none';
-                  }
-                }
-              </script>
-
-              <div class="form-group">
-                <label for="description">Description *</label>
-                <textarea id="description" name="description" rows="5" required
-                  placeholder="Describe what attendees can expect..."></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-block">Submit for Approval</button>
-            </form>
-      </main>
-
-      <%- include('partials/footer') %>
+<%- include('partials/footer') %>

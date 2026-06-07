@@ -1,35 +1,33 @@
-<%- include('partials/header', { title: 'Support' , page: 'support' , pageCss: 'support' }) %>
-  <%- include('partials/navbar', { page: 'support' }) %>
-    <%- include('partials/toast') %>
+<%- include('partials/header', { title: 'Support', page: 'support', pageCss: 'support' }) %>
+<%- include('partials/navbar', { page: 'support' }) %>
+<%- include('partials/toast') %>
 
-      <main class="container">
-        <h1 class="page-title">🆘 Support & FAQ</h1>
-        <div class="faq-section">
-          <h3>❓ Frequently Asked Questions</h3>
-          <div class="faq-item">
-            <h4>How do I create an event?</h4>
-            <p>Log in, click "Create Event", fill out the form, and submit. An admin will review and approve it within
-              24 hours.</p>
-          </div>
-          <div class="faq-item">
-            <h4>Can I cancel my RSVP?</h4>
-            <p>Yes. Visit the event page and click "Cancel RSVP". Your seat will be released to other students.</p>
-          </div>
-          <div class="faq-item">
-            <h4>Is my data secure?</h4>
-            <p>Absolutely. Passwords are encrypted, sessions are secure, and we never share personal information with
-              third parties.</p>
-          </div>
-        </div>
+<main class="container">
+  <h1 class="page-title">🆘 Support & FAQ</h1>
+  <div class="faq-section">
+    <h3>❓ Frequently Asked Questions</h3>
+    <div class="faq-item">
+      <h4>How do I create an event?</h4>
+      <p>Log in, click "Create Event", fill out the form, and submit. An admin will review and approve it within 24 hours.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I cancel my RSVP?</h4>
+      <p>Yes. Visit the event page and click "Cancel RSVP". Your seat will be released to other students.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is my data secure?</h4>
+      <p>Absolutely. Passwords are encrypted, sessions are secure, and we never share personal information with third parties.</p>
+    </div>
+  </div>
 
-        <form class="contact-form" action="/support" method="POST">
-          <h3>📩 Contact Us</h3>
-          <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
-      </main>
+  <form class="contact-form" action="/support" method="POST">
+    <h3>📩 Contact Us</h3>
+    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+    <button type="submit" class="btn btn-primary">Send Message</button>
+  </form>
+</main>
 
-      <%- include('partials/footer') %>
+<%- include('partials/footer') %>
