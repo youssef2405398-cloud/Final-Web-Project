@@ -49,7 +49,7 @@
           <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
           
           <div class="guest-counter">
-            <label for="guestCount">Number of Guests (Max <%= maxGuests %>):</label>
+            <label for="guestCount">Number of Tickets (including you - Max <%= maxGuests %>):</label>
             <input type="number" id="guestCount" name="guestCount" min="1" max="<%= maxGuests %>" value="1" required <%= isFull ? 'disabled' : '' %>>
           </div>
           

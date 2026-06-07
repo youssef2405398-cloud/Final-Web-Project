@@ -40,10 +40,20 @@
 
         <div class="action-buttons">
           <% if (user && user.userId) { %>
-            <% if (event.availableSeats > 0) { %>
-              <a href="/rsvp/<%= event._id %>" class="btn btn-primary btn-block">RSVP Now</a>
+            <% if (typeof hasRSVPed !== 'undefined' && hasRSVPed) { %>
+              <div class="alert alert-success" style="text-align: center; margin-bottom: 1rem; background: rgba(16, 185, 129, 0.15); color: var(--success); padding: 0.75rem; border-radius: 8px;">
+                🎉 You are registered for this event!
+              </div>
+              <form action="/cancel-rsvp/<%= event._id %>" method="POST">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                <button type="submit" class="btn btn-danger btn-block">Cancel RSVP</button>
+              </form>
             <% } else { %>
-              <button class="btn btn-secondary btn-block" disabled>Event Full</button>
+              <% if (event.availableSeats > 0) { %>
+                <a href="/rsvp/<%= event._id %>" class="btn btn-primary btn-block">RSVP Now</a>
+              <% } else { %>
+                <button class="btn btn-secondary btn-block" disabled>Event Full</button>
+              <% } %>
             <% } %>
           <% } else { %>
             <a href="/login?redirect=/events/<%= event._id %>" class="btn btn-outline btn-block">Log in to RSVP</a>

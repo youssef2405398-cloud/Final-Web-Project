@@ -1,4 +1,5 @@
 const Event = require('../models/Event');
+const RSVP = require('../models/RSVP');
 
 exports.getHome = async (req, res) => {
   try {
@@ -109,7 +110,20 @@ exports.getEventDetail = async (req, res) => {
     }
     
     event.availableSeats = Math.max(0, event.maxAttendees - event.currentAttendees);
-    res.render('event-detail', { title: event.title, event, page: 'event-detail', pageCss: 'event-detail' });
+    
+    let hasRSVPed = false;
+    if (req.session.userId) {
+      const existingRSVP = await RSVP.findOne({ user: req.session.userId, event: event._id });
+      hasRSVPed = !!existingRSVP;
+    }
+
+    res.render('event-detail', { 
+      title: event.title, 
+      event, 
+      page: 'event-detail', 
+      pageCss: 'event-detail',
+      hasRSVPed 
+    });
   } catch (err) {
     console.error('Event Detail Error:', err);
     req.session.toast = { type: 'error', message: 'Failed to load event' };

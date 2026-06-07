@@ -3,13 +3,13 @@ const router = express.Router();
 const authCtrl = require('../controllers/authController');
 const { guestOnly } = require('../middleware/auth');
 const { validateSignup, validateLogin } = require('../middleware/validation');
-const { asyncHandler, handleValidationErrors } = require('../middleware/errorHandler');
+const { handleValidationErrors } = require('../middleware/errorHandler');
 
 router.get('/login', guestOnly, authCtrl.getLogin);
-router.get('/signup', guestOnly, authCtrl.getSignup);
+router.post('/login', guestOnly, validateLogin, handleValidationErrors, authCtrl.postLogin);
 
-router.post('/signup', validateSignup, handleValidationErrors, asyncHandler(authCtrl.postSignup));
-router.post('/login', validateLogin, handleValidationErrors, asyncHandler(authCtrl.postLogin));
+router.get('/signup', guestOnly, authCtrl.getSignup);
+router.post('/signup', guestOnly, validateSignup, handleValidationErrors, authCtrl.postSignup);
 
 router.get('/logout', authCtrl.logout);
 
